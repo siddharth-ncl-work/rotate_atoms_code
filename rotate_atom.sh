@@ -1,6 +1,6 @@
 file_path='/home/vanka/siddharth/molecular_machines_project/molecular_machines/verification/test_systems/ring_track_at_origin_non_ideal_artificial_system.xyz'
 d_theta=10
-ref_atom1_no=35
+ref_atom1_no=21
 ref_atom2_no=38
 atom_no_list="
 1

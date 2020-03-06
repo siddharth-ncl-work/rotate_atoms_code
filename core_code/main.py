@@ -19,16 +19,26 @@ def get_sys_agrs():
   args_dict={'file_path':file_path,'d_theta':d_theta,'ref_atom1_no':ref_atom1_no,'ref_atom2_no':ref_atom2_no,'atom_no_list':atom_no_list}
   return args_dict
 
-def getAxis(agrs_dict):
-  return [1,0,0]
+def getAxis(agrs_dict,cords_df):
+  axis=[0,0,0]
+  ref_atom1_no=args_dict['ref_atom1_no']
+  ref_atom2_no=args_dict['ref_atom2_no']
+  ref_atom1_cords=cords_df[cords_df['atom_no']==ref_atom1_no][['x','y','z']].values[0]
+  ref_atom2_cords=cords_df[cords_df['atom_no']==ref_atom2_no][['x','y','z']].values[0]
+  axis[0]=ref_atom2_cords[0]-ref_atom1_cords[0]
+  axis[1]=ref_atom2_cords[1]-ref_atom1_cords[1]
+  axis[2]=ref_atom2_cords[2]-ref_atom1_cords[2]
+  return axis
 
 args_dict=get_sys_agrs()
-print(args_dict)
-initial_cords_df=io.readFile(args_dict['file_path'])
 output_file_name=args_dict['file_path'].split('/')[-1].split('.')[0]
 output_file_md=open(os.path.join(output_dir_path,output_file_name+f'_md.xyz'),'w')
+print(args_dict)
 print(output_file_name)
-axis=getAxis(args_dict)
+initial_cords_df=io.readFile(args_dict['file_path'])
+axis=getAxis(args_dict,initial_cords_df)
+print(initial_cords_df.head())
+print(axis)
 for curr_frame_no,theta in tqdm(enumerate(range(0,360,args_dict['d_theta']))):
   final_cords_df=rotation.rotateAlongAxis(initial_cords_df,axis,math.radians(theta),args_dict['atom_no_list'])
   io.writeFile(os.path.join(output_dir_path,output_file_name+f'_{theta}.xyz'),final_cords_df)
