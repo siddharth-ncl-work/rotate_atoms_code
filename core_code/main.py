@@ -36,10 +36,13 @@ output_file_md=open(os.path.join(output_dir_path,output_file_name+f'_md.xyz'),'w
 print(args_dict)
 print(output_file_name)
 initial_cords_df=io.readFile(args_dict['file_path'])
+ref_atom1_no=args_dict['ref_atom1_no']
+ref_atom1_cords=initial_cords_df[initial_cords_df['atom_no']==ref_atom1_no][['x','y','z']].values[0]
+shifted_initial_cords_df=rotation.shiftOrigin(initial_cords_df,ref_atom1_cords)
 axis=getAxis(args_dict,initial_cords_df)
 print(initial_cords_df.head())
 print(axis)
-for curr_frame_no,theta in tqdm(enumerate(range(0,360,args_dict['d_theta']))):
+for curr_frame_no,theta in enumerate(tqdm(range(0,360,args_dict['d_theta']))):
   final_cords_df=rotation.rotateAlongAxis(initial_cords_df,axis,math.radians(theta),args_dict['atom_no_list'])
   io.writeFile(os.path.join(output_dir_path,output_file_name+f'_{theta}.xyz'),final_cords_df)
   io.writeFileMd(output_file_md,final_cords_df,curr_frame_no,frame_no_pos=2)

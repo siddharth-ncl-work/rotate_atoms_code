@@ -4,6 +4,12 @@ import numpy as np
 
 from lib.basic_operations import vector
 
+def shiftOrigin(cords,origin):
+  new_cords=cords.copy()
+  new_cords['x']=new_cords['x']-origin[0]
+  new_cords['y']=new_cords['y']-origin[1]
+  new_cords['z']=new_cords['z']-origin[2]
+  return new_cords
 
 def getRotMat(axis,theta):
   R=np.zeros((3,3))
@@ -31,4 +37,6 @@ def rotateAlongAxis(cords,axis,theta,atom_list=[]):
   _cords=part_cords[['x','y','z']].values
   new_cords.loc[new_cords['atom_no'].isin(atom_list),['x','y','z']]=np.matmul(_cords,R.T)
   return new_cords
+
+
 
