@@ -1,6 +1,6 @@
-input_file_path='/home/vanka/vipin/project_2_silane_aluminum_adduct/scanning_of_R_group_orientations/rc_for_ts_re_insertion_with_dcpdms_adduct_0_degree_dihedral.xyz'
+input_file_path=/home/vanka/vipin/project_2_silane_aluminum_adduct/scanning_of_R_group_orientations/rc_for_ts_re_insertion_with_dcpdms_adduct_0_degree_dihedral.xyz
 
-output_dir_path='../output'
+output_dir_path=../output
 
 d_theta=20
 
