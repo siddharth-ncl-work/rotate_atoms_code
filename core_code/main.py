@@ -43,6 +43,6 @@ axis=getAxis(args_dict,initial_cords_df)
 print(initial_cords_df.head())
 print(axis)
 for curr_frame_no,theta in enumerate(tqdm(range(0,360,args_dict['d_theta']))):
-  final_cords_df=rotation.rotateAlongAxis(initial_cords_df,axis,math.radians(theta),args_dict['atom_no_list'])
+  final_cords_df=rotation.rotateAlongAxis(shifted_initial_cords_df,axis,math.radians(theta),args_dict['atom_no_list'])
   io.writeFile(os.path.join(output_dir_path,output_file_name+f'_{theta}.xyz'),final_cords_df)
   io.writeFileMd(output_file_md,final_cords_df,curr_frame_no,frame_no_pos=2)
